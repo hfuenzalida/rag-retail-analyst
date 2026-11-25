@@ -1,0 +1,19 @@
+# Pilot retail tenant — single-tenant production binding
+client_id: demo-retail
+display_name: Pilot Retail Co
+environment: production
+
+allowed_roles:
+  - manager
+  - analyst
+  - admin
+
+features:
+  metrics: true
+  drivers: true
+  recommendations: true
+  ingest: true
+
+notes: >
+  First production pilot. Managers receive summary-level analytics;
+  analysts receive deep-dive and driver analysis per rollout matrix.

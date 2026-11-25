@@ -1,0 +1,33 @@
+[
+  {
+    "id": "retail-001",
+    "client_id": "demo-retail",
+    "question": "What was total net revenue last month?",
+    "filters": {
+      "date_range": { "start_date": "2026-05-01", "end_date": "2026-05-31" }
+    },
+    "expected": {
+      "metric_name": "total_revenue",
+      "value": 1640,
+      "tolerance_pct": 0.01
+    }
+  },
+  {
+    "id": "retail-002",
+    "client_id": "demo-retail",
+    "question": "Which category contributed most to margin last quarter?",
+    "expected": {
+      "dimension": "category",
+      "requires_drivers": true
+    }
+  },
+  {
+    "id": "retail-003",
+    "client_id": "demo-retail",
+    "question": "Which SKUs are currently out of stock?",
+    "expected": {
+      "metric_name": "stock_out_rate",
+      "requires_abstention_if_no_data": false
+    }
+  }
+]

@@ -1,0 +1,17 @@
+---
+description: Five-phase feature slice workflow
+alwaysApply: false
+---
+
+# Implementation Workflow
+
+Each feature slice follows:
+
+1. **Plan** — confirm step in `implementation-plan.md`
+2. **Code** — targeted module only + tests
+3. **Test** — `pytest app/tests -v`
+4. **Eval subset** — when eval harness exists (Phase 5+)
+5. **Review** — human merge for Red Zone
+
+- One feature slice per branch (e.g. `feature/metric-tools`).
+- Do not rewrite API + agents + DB in one pass.

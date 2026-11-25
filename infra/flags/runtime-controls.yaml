@@ -1,0 +1,49 @@
+# Hot-swappable runtime controls (Phase 6 wiring)
+# Edit via admin dashboard or reload without full redeploy.
+
+defaults:
+  local_llm_model: "llama3.2"
+  cloud_routing_enabled: false
+  eval_sampling_rate: 0.05
+
+sensitivity:
+  high_keywords:
+    - customer
+    - salary
+    - patient
+  default_decision: local_only
+
+feature_flags:
+  cloud_routing: false
+  recommendation_engine: true
+  new_prompts: false
+  ingest_enabled: true
+
+kill_switches:
+  cloud_routing: false
+  automated_recommendations: false
+  local_llm: false
+  openai_provider: false
+  new_prompts: false
+
+rollout:
+  cloud_routing:
+    admin: true
+    analyst: true
+    manager: false
+  new_prompts:
+    admin: true
+    analyst: true
+    manager: false
+  recommendation_engine:
+    admin: true
+    analyst: true
+    manager: true
+  deep_dive_mode:
+    admin: true
+    analyst: true
+    manager: false
+  driver_analysis:
+    admin: true
+    analyst: true
+    manager: false

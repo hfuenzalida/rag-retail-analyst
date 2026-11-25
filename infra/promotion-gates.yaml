@@ -1,0 +1,31 @@
+# Promotion gate checklist — all gates must pass before staging → production.
+gates:
+  - id: unit_tests
+    description: All backend unit and integration tests pass
+    command: pytest app/tests -q --ignore=app/tests/test_integration_db.py --ignore=app/tests/test_integration_query.py --ignore=app/tests/test_integration_rag.py
+    required: true
+
+  - id: eval_ci
+    description: Golden eval CI subset meets thresholds (≥95% factual, ≥98% grounded, 100% abstention)
+    command: python infra/scripts/run_eval_ci.py
+    required: true
+
+  - id: smoke
+    description: Health check and canary query routing verified
+    command: python infra/scripts/run_smoke.py
+    required: true
+
+  - id: config_lint
+    description: Schema, runtime controls, and env templates validated
+    command: python infra/scripts/lint_config.py
+    required: true
+
+  - id: failure_injection
+    description: Kill switch and LLM fallback drills pass
+    command: python infra/scripts/run_failure_injection.py
+    required: true
+
+  - id: human_signoff
+    description: Code-owner sign-off for Red Zone changes (manual)
+    required: true
+    manual: true

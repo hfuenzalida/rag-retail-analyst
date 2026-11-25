@@ -1,0 +1,14 @@
+---
+description: Canonical stack — FastAPI, Pydantic AI, Postgres, local LLM
+alwaysApply: true
+---
+
+# Stack Rules
+
+- Backend: FastAPI + Pydantic + Pydantic Settings (`APP_` prefix, `SecretStr` for secrets).
+- Agents: Pydantic AI (Phase 3+); prompts in YAML under `backend/app/agents/prompts/`.
+- Database: PostgreSQL + pgvector.
+- Local LLM: separate chat and embedding URLs.
+- Frontend: Next.js 14 + TypeScript.
+- Observability: Logfire when `APP_LOGFIRE_TOKEN` is set.
+- Never hard-code secrets; use `Settings` from `app.core.config`.

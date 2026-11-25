@@ -1,0 +1,14 @@
+---
+description: Test requirements for backend changes
+globs: backend/app/tests/**,backend/app/tools/**,backend/app/agents/**,backend/app/api/**
+alwaysApply: false
+---
+
+# Testing Rules
+
+- Any tool/agent/API change requires matching pytest updates.
+- Unit tests mock DB and LLM; no live external calls in CI.
+- Integration tests use FastAPI `TestClient`.
+- Run: `cd backend && pytest app/tests -v`
+- Do not delete or skip tests to pass gates.
+- Golden questions live in `memory-bank/eval/golden-questions.json`.

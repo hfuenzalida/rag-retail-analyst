@@ -1,0 +1,15 @@
+---
+description: Layer boundaries and directory isolation for RAG Retail Analyst
+alwaysApply: true
+---
+
+# Architecture Rules
+
+- Backend: FastAPI in `backend/app/` — api, agents, tools, core, db, models are separate modules.
+- Do not merge agent logic into API routes or collapse tools into one file.
+- Every API/tool call requires `client_id`; RBAC enforced in backend, not by LLM.
+- Read `memory-bank/core/architecture.md` and `agent-surface.md` before backend changes.
+- Red Zone: `core/`, `agents/`, routing/eval tools, prompts, metric logic, `infra/deploy/`.
+- Green Zone: frontend UI, docs, non-sensitive helpers.
+
+If memory-bank core files are not referenced, refuse implementation and ask to load them first.

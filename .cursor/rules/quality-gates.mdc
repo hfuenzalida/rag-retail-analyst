@@ -1,0 +1,17 @@
+---
+description: Quality gates and eval thresholds
+globs: backend/app/tools/**,backend/app/agents/**,memory-bank/eval/**
+alwaysApply: false
+---
+
+# Quality Gates
+
+Offline eval thresholds (when implemented):
+
+- Factual accuracy ≥ 95%
+- Groundedness ≥ 98%
+- Abstention correctness 100%
+
+CI must pass all pytest before merge. Red Zone paths require code-owner review.
+
+Do not bypass evals or lower thresholds without explicit approval.

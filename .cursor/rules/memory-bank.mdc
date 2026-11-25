@@ -1,0 +1,19 @@
+---
+description: Memory-bank workflow and file governance
+globs: memory-bank/**
+alwaysApply: false
+---
+
+# Memory-Bank Rules
+
+Before backend work, read in order:
+
+1. `memory-bank/core/agent-surface.md`
+2. `memory-bank/core/architecture.md`
+3. `memory-bank/core/testing-strategy.md`
+4. `memory-bank/core/implementation-plan.md`
+
+- Work one implementation-plan step at a time.
+- Update `progress.md` after completing a step.
+- Propose-only edits to `implementation-plan.md` unless explicitly asked.
+- `memory-bank/core/**` and `memory-bank/agents/**` are controlled — no silent overwrites.

@@ -1,0 +1,19 @@
+---
+description: Agent roster and isolation rules
+globs: backend/app/agents/**
+alwaysApply: false
+---
+
+# Agent Rules
+
+Five agents — do not collapse into one:
+
+1. RAG Analyst — business Q&A, approved tools only
+2. Evaluator — quality scoring, separate from query path
+3. Ingestion / Schema Mapping — propose-only mappings
+4. Routing / Sensitivity — local vs cloud decisions
+5. Ops / Maintenance — internal evals and observability
+
+- One agent module per task; no multi-agent refactors in a single pass.
+- RAG Analyst must never call ingestion, config, or raw SQL tools.
+- Prompt YAML edits are Red Zone — propose diffs only.

@@ -1,0 +1,14 @@
+---
+description: Secrets, RBAC, and routing security
+globs: backend/app/core/**,backend/app/tools/routing_tools.py,backend/app/tools/eval_tools.py
+alwaysApply: false
+---
+
+# Security Rules
+
+- All config via `Settings`; never log `SecretStr` values.
+- No `.env.local` contents in generated code or commits.
+- Parameterized SQL only; no string-interpolated queries.
+- `check_sensitivity` runs before any cloud LLM call (Phase 3+).
+- RBAC at tool decorators: manager < analyst < admin.
+- Red Zone — propose changes; require human review before merge.

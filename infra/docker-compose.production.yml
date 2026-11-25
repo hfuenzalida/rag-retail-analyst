@@ -1,0 +1,79 @@
+# Single-tenant production node for pilot client rollout.
+#
+# Usage:
+#   cp env.production.example .env.production
+#   docker compose -f docker-compose.production.yml up --build -d
+
+services:
+  postgres-db:
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+      POSTGRES_DB: rag_analyst
+    volumes:
+      - production_postgres_data:/var/lib/postgresql/data
+      - ../backend/app/db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d rag_analyst"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend-api:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    env_file:
+      - path: .env.production
+        required: true
+    environment:
+      APP_ENV: production
+      APP_DB_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@postgres-db:5432/rag_analyst
+      APP_RUNTIME_CONTROLS_PATH: /config/runtime-controls.yaml
+      APP_TENANT_CONFIG_PATH: /config/tenant.yaml
+    volumes:
+      - ./flags/runtime-controls.yaml:/config/runtime-controls.yaml:ro
+      - ./clients/pilot-retail.yaml:/config/tenant.yaml:ro
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz/ready')"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  frontend-ui:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+    depends_on:
+      backend-api:
+        condition: service_healthy
+
+  seed-demo:
+    profiles: ["init"]
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    command: python -m app.db.seed
+    environment:
+      APP_DB_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@postgres-db:5432/rag_analyst
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    restart: "no"
+
+volumes:
+  production_postgres_data:
