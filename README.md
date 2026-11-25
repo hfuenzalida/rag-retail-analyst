@@ -1,6 +1,10 @@
 # RAG Retail Analyst
 
-**Sovereign AI data analyst** for retail inventory and sales: natural-language questions over structured metrics and document-backed context, with a FastAPI agent layer, PostgreSQL + pgvector, and a Next.js operator UI.
+## Business case
+
+Small and mid-size retailers need answers like “why did margin drop?” or “what will stock out next week?”, but generic chatbots **hallucinate without inventory truth**, and SaaS analytics often require **sending sales data to vendor clouds** the business does not control.
+
+This product is built for **evidence-linked retail intelligence**: metrics from `sales`, `inventory`, and `products` tables, retrieval over ingested documents, and agent orchestration that can **abstain when data is missing** (see `memory-bank/core/product-spec.md`). Sensitivity routing prepares the design for **local vs cloud LLM** without mixing confidential rows into the wrong model call. **Intent:** a **vertical reference implementation** for sovereign RAG in operations—partner-ready demos via Docker Compose, not a multi-tenant SaaS in this repo.
 
 **Stack:** FastAPI · Pydantic AI agents · PostgreSQL · pgvector · Next.js  
 **License:** [MIT](LICENSE)  
