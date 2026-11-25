@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" role="img" aria-label="RAG retail analyst query flow">
+  <defs>
+    <marker id="rq" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#334155"/>
+    </marker>
+    <style>
+      .b { fill: #fff; stroke: #64748b; }
+      .db { fill: #eff6ff; stroke: #2563eb; }
+      .t { font: 600 14px system-ui,sans-serif; fill: #0f172a; }
+      .l { font: 12px system-ui,sans-serif; fill: #334155; }
+    </style>
+  </defs>
+  <rect width="880" height="320" fill="#f8fafc"/>
+  <text x="440" y="28" text-anchor="middle" class="t">RAG Retail Analyst — query path</text>
+  <rect x="40" y="55" width="120" height="48" rx="8" class="b"/>
+  <text x="100" y="84" text-anchor="middle" class="l">Next.js UI</text>
+  <line x1="160" y1="79" x2="200" y2="79" stroke="#334155" marker-end="url(#rq)"/>
+  <rect x="200" y="55" width="130" height="48" rx="8" class="b"/>
+  <text x="265" y="84" text-anchor="middle" class="l">POST /query</text>
+  <line x1="330" y1="79" x2="370" y2="79" stroke="#334155" marker-end="url(#rq)"/>
+  <rect x="370" y="55" width="150" height="48" rx="8" fill="#fef3c7" stroke="#d97706"/>
+  <text x="445" y="84" text-anchor="middle" class="l">Routing agent</text>
+  <line x1="520" y1="79" x2="560" y2="79" stroke="#334155" marker-end="url(#rq)"/>
+  <rect x="560" y="55" width="150" height="48" rx="8" fill="#ecfdf5" stroke="#059669"/>
+  <text x="635" y="84" text-anchor="middle" class="l">RAG analyst</text>
+  <line x1="710" y1="79" x2="750" y2="79" stroke="#334155" marker-end="url(#rq)"/>
+  <rect x="750" y="55" width="90" height="48" rx="8" class="b"/>
+  <text x="795" y="84" text-anchor="middle" class="l">Evaluator</text>
+  <rect x="200" y="140" width="640" height="56" rx="8" class="db"/>
+  <text x="520" y="165" text-anchor="middle" class="l">PostgreSQL: sales · inventory · products · pgvector (rag_documents)</text>
+  <text x="520" y="183" text-anchor="middle" class="l">Tools: metrics SQL · hybrid retrieval · sensitivity routing (local vs cloud LLM)</text>
+  <rect x="120" y="220" width="280" height="48" rx="8" class="b"/>
+  <text x="260" y="250" text-anchor="middle" class="l">/ingest · admin CSV</text>
+  <rect x="480" y="220" width="280" height="48" rx="8" class="b"/>
+  <text x="620" y="250" text-anchor="middle" class="l">/eval · golden questions CI</text>
+  <text x="440" y="298" text-anchor="middle" class="l">Docker Compose stack: Postgres + FastAPI + Next.js (infra/docker-compose.local.yml)</text>
+</svg>
